@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A imagenet classification demo.">
+    <meta name="author" content="Yangqing Jia (jiayq@eecs.berkeley.edu)">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <title>Decaf Demo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+    rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+        <h1>Decaf Image Classifier</h1>
+        <a href="{{ url_for('about') }}">About this demo</a>
+      </div>
+      <p class="lead"> Provide an image and have it classified by decaf.</p>
+      <p> Too lazy? <a href="/classify_url?imageurl=http%3A%2F%2Fi.telegraph.co.uk%2Fmultimedia%2Farchive%2F02351%2Fcross-eyed-cat_2351472k.jpg">Just click here</a> for a simple cat example.</p>
+
+      {% if has_result %}
+      <hr>
+      {% if not result[0] %}
+      <!-- we have error in the result. -->
+      <div class="alert alert-danger">{{ result[1] }} Did you provide a valid URL or a valid image file? </div>
+      {% else %}
+      <div class="media">
+        <a class="pull-left" href="#"><img class="media-object" width="256" height="256" src={{ imagesrc }}></a>
+        <div class="media-body">
+          <h3 class="media-heading">Predictions:</h3>
+          <ul class="list-group">
+            {% for single_pred in result[1] %}
+            <li class="list-group-item">
+            <span class="badge">{{ single_pred[1] }}</span>
+            <h4 class="list-group-item-heading">{{ single_pred[0] }}</h4>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <p> Classification took {{ result[2] }} seconds. </p>
+      {% endif %}
+      <hr>
+      {% endif %}
+     
+      <form role="form" action="classify_url" method="get">
+        <div class="form-group">
+          <label for="imageurl">Provide an Image URL:</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="imageurl" id="imageurl" placeholder="url">
+            <span class="input-group-btn">
+              <input class="btn btn-primary" value="Classify URL" type="submit" id="classifyurl"></input>
+            </span>
+          </div><!-- /input-group -->
+        </div>
+      </form>
+      
+      <form class="form-inline" role="form" action="classify_upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="imagefile">Or upload a local image:</label>
+          <input type="file" name="imagefile" id="imagefile">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Classify File" id="classifyfile"></input>
+      </form>
+      
+    </div>
+
+    <hr>
+    <div id="footer">
+      <div class="container">
+        <p>&copy; Copyright 2013</p>
+      </div>
+    </div>
+    
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.js"></script>
+    <script type="text/javascript">
+      $(document).ready(
+        function(){
+          $('#classifyfile').attr('disabled',true);
+          $('#imagefile').change(
+            function(){
+              if ($(this).val()){
+                $('#classifyfile').removeAttr('disabled');
+              } else {
+                $('#classifyfile').attr('disabled',true);
+              }
+            }
+          );
+        }
+      );
+    </script>
+
+  </body>
+</html>

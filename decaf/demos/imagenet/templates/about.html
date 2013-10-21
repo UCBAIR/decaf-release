@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A imagenet classification demo.">
+    <meta name="author" content="Yangqing Jia (jiayq@eecs.berkeley.edu)">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <title>Decaf Classification Demo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+    rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+        <h1>Decaf</h1>
+        <a href="{{ url_for('index')}}">Back to demo</a>
+      </div>
+      <p class="lead">About the Demo</p>
+      <p> This demo is created by <a href="http://www.eecs.berkeley.edu/~jiayq/">Yangqing Jia</a> and <a href="http://jeffdonahue.com/">Jeff Donahue</a> at the University of California, Berkeley. The demo code lives purely in the realm of <a href="http://xkcd.com/353/">Python</a>, with <a href="http://flask.pocoo.org/">flask</a> as the front-end server.</p>
+      <p> The classifier is a convolutional neural network trained using data from <a href="http://www.image-net.org/">ImageNet</a> with 1,000 classes. You can view the training data <a href="http://www.image-net.org/challenges/LSVRC/2012/browse-synsets">here</a>. The images are reshaped so that the shorter side has length 256, and the centre 256x256 part is cropped for training. When we perform classification on your image, we take the four corners and the center of the image (all of size 227x227) and their mirrored versions, and average the predictions on these images. The top 5 predictions as well as their scores among the 1000 classes are shown.</p>
+      <p> You may want to check out <a href="http://www.cs.toronto.edu/~kriz/" target="_blank">Alex Krizhevsky</a>'s NIPS 2012 paper for the details of the CNN model. </p>
+      <hr>
+      <p class="lead">About Decaf</p>
+      <p> Decaf is a general python framework for deep convolutional neural networks, relying on a set of scientific computation modules (such as numpy/scipy) to efficiently run CNN models without the need of a GPU. If you are a UCB/ICSI vision group member, fork the code <a href="https://github.com/UCB-ICSI-Vision-Group/decaf">here</a>.</p>
+      <p> For the demo, our code usually performs classification at a speed of 0.5 seconds per image. Our server also serves our daily research usage, so if the demo speed is low, it's because we are working hard towards a better model.</p>
+      <hr>
+      <p class="lead">Disclaimer</p>
+      <p> In short, enjoy the website, but don't sue us. A more lawyer-readable disclaimer can be found <a href="http://ourdisclaimer.com/?i=Decaf">HERE</a>.</p>
+    </div>
+
+    <hr>
+    <div id="footer">
+      <div class="container">
+        <p>&copy; Copyright 2013</p>
+      </div>
+    </div>
+
+  </body>
+</html>

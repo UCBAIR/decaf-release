@@ -1,0 +1,57 @@
+# decaf stuff
+no_git_*
+*.dat
+*.decafnet
+*.dot
+.DS_Store
+*.mat
+*.npy
+*.npy
+*.pdf
+*.pickle
+*.png
+*.pstats
+*.swp
+*.txt
+
+# Python compiled
+*.py[cod]
+
+# slurm
+slurm-*.out
+
+# C extensions
+a.out
+*.o
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject

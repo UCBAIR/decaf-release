@@ -145,7 +145,7 @@ class Blob(object):
     def __setstate__(self, state):
         """Recovers the state."""
         if state[0] is None:
-            Blob.__init__(self, state[1])
+            Blob.__init__(self, filler=state[1])
         else:
             Blob.__init__(self, state[0].shape, state[0].dtype, state[1])
             self._data[:] = state[0]

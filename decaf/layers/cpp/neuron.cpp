@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstdlib>
 #include "neuron.h"
 
 using std::max;

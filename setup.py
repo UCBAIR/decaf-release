@@ -5,10 +5,14 @@
 #   python setup.py install
 # You should be able to then use decaf in your python environment.
 
-from distutils.core import setup, Extension
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 from distutils.util import convert_path
 from fnmatch import fnmatchcase
 import os
+import sys
 
 def find_packages(where='.'):
     out = []
@@ -27,10 +31,16 @@ def find_packages(where='.'):
     return out
 
 def run_setup():
+    if sys.version_info < (2, 7):
+        sys.stderr.write("Decaf requires Python >= 2.7\n")
+        exit(-1)
     # Before running setup, let's do a make since we have C shared libraries
     # to be build (note that they are not python extensions...)
     # It's kind of ugly, but let's just keep it this way for simplicity
-    os.system('cd decaf; make; cd ..')
+    retval = os.system('cd decaf; make')
+    if retval != 0:
+        sys.stderr.write("Failed to build the C libraries; exiting.\n")
+        exit(retval)
     setup(name='decaf',
           version='0.9',
           description='Deep convolutional neural network framework',
@@ -42,7 +52,26 @@ def run_setup():
                         'decaf.demos.notebooks': ['*.ipynb'],
                         'decaf.layers.cpp': ['libcpputil.so'],
                        },
-         )
+          install_requires=[
+              'matplotlib',
+              'networkx',
+              'numexpr',
+              'numpy',
+              'pydot',
+              'scipy',
+              'scikit-image',
+          ],
+          extras_require={
+              'benchmarks': ['theano'],
+              'mpi': ['mpi4py'],
+              'demo': [
+                  'python-gflags',
+                  'flask',
+                  'tornado',
+                  'PIL',
+              ],
+          }
+    )
 
 if __name__ == '__main__':
     run_setup()

@@ -19,3 +19,5 @@ citing our paper if you use Decaf in your research:
       journal={arXiv preprint arXiv:1310.1531},
       year={2013}
     }
+
+For Anaconda users experiencing libm error: it is because anaconda ships with a libm.so binary that does not support GLIBC_2.15, which gets loaded earlier than the system libm. You can fix this error by you can replacing anaconda's libm file with a newer version.

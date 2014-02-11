@@ -34,7 +34,7 @@ _MPI_BUFFER_LIMIT = 2 ** 30
 
 # we need to set the random seed different for each mpi instance
 logging.info('blop.util.mpi: seting different random seeds for each node.')
-random.seed(time.time() * RANK)
+random.seed(time.time() * (RANK+1))
 
 def is_dummy():
     '''Returns True if this is a dummy version of MPI.'''
